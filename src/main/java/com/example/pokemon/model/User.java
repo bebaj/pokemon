@@ -1,17 +1,53 @@
 package com.example.pokemon.model;
-
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
 @Table(name = "users")
+@Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+
+    @Column(nullable = false)
+    private String role;
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_pokemon",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "pokemon_id")
+    )
+    private Set<Pokemon> caughtPokemons = new HashSet<>();
+
+    // Constructors
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -36,14 +72,6 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Set<Pokemon> getCaughtPokemons() {
         return caughtPokemons;
     }
@@ -52,21 +80,5 @@ public class User {
         this.caughtPokemons = caughtPokemons;
     }
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_pokemon",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "pokemon_id")
-    )
-    private Set<Pokemon> caughtPokemons = new HashSet<>();
 
 }

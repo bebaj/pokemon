@@ -4,6 +4,14 @@ import com.example.pokemon.model.Pokemon;
 import com.example.pokemon.model.User;
 import com.example.pokemon.repository.PokemonRepository;
 import com.example.pokemon.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import com.example.pokemon.model.Pokemon;
+import com.example.pokemon.model.User;
+import com.example.pokemon.repository.PokemonRepository;
+import com.example.pokemon.repository.UserRepository;
 import com.example.pokemon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
